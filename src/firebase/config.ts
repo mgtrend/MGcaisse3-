@@ -6,15 +6,14 @@ import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 
-// Remplacez ces valeurs par celles de votre projet Firebase
-// Vous obtiendrez ces informations après avoir créé votre projet sur https://console.firebase.google.com/
+// Récupération des variables d'environnement
 const firebaseConfig = {
-  apiKey: "VOTRE_API_KEY",
-  authDomain: "votre-projet.firebaseapp.com",
-  projectId: "votre-projet",
-  storageBucket: "votre-projet.appspot.com",
-  messagingSenderId: "votre-messaging-sender-id",
-  appId: "votre-app-id"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "VOTRE_API_KEY",
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || "votre-projet.firebaseapp.com",
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || "votre-projet",
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || "votre-projet.appspot.com",
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || "votre-messaging-sender-id",
+  appId: import.meta.env.VITE_FIREBASE_APP_ID || "votre-app-id"
 };
 
 // Initialiser Firebase
