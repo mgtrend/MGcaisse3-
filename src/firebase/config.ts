@@ -6,14 +6,14 @@ import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 
-// Récupération des variables d'environnement
+// Configuration Firebase avec les valeurs réelles du projet
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "VOTRE_API_KEY",
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || "votre-projet.firebaseapp.com",
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || "votre-projet",
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || "votre-projet.appspot.com",
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || "votre-messaging-sender-id",
-  appId: import.meta.env.VITE_FIREBASE_APP_ID || "votre-app-id"
+  apiKey: "AIzaSyAhri2iXVG7qrPhjLWzpq6rVLBO-i2Xw8",
+  authDomain: "mgcaisse3.firebaseapp.com",
+  projectId: "mgcaisse3",
+  storageBucket: "mgcaisse3.firebasestorage.com",
+  messagingSenderId: "2550737714",
+  appId: "1:2550737714:web:9da1ba638c2c"
 };
 
 // Initialiser Firebase
