@@ -10,8 +10,6 @@ import {
   getDoc, 
   getDocs, 
   deleteDoc, 
-  query, 
-  where,
   onSnapshot,
   Timestamp,
   writeBatch
@@ -56,6 +54,8 @@ class FirestoreProductService {
           stock: data.stock,
           category: data.category || '',
           icon: data.icon || '',
+          createdAt: data.createdAt?.toMillis() || Date.now(), // Add createdAt
+          updatedAt: data.updatedAt?.toMillis() || Date.now(), // Add updatedAt
           lastUpdated: data.lastUpdated?.toDate() || new Date()
         });
       });
@@ -115,6 +115,8 @@ class FirestoreProductService {
           stock: data.stock,
           category: data.category || '',
           icon: data.icon || '',
+          createdAt: data.createdAt?.toMillis() || Date.now(), // Add createdAt
+          updatedAt: data.updatedAt?.toMillis() || Date.now(), // Add updatedAt
           lastUpdated: data.lastUpdated?.toDate() || new Date()
         });
       });
@@ -151,6 +153,8 @@ class FirestoreProductService {
           stock: data.stock,
           category: data.category || '',
           icon: data.icon || '',
+          createdAt: data.createdAt?.toMillis() || Date.now(), // Add createdAt
+          updatedAt: data.updatedAt?.toMillis() || Date.now(), // Add updatedAt
           lastUpdated: data.lastUpdated?.toDate() || new Date()
         };
       }
@@ -203,6 +207,7 @@ class FirestoreProductService {
       }
       
       const productId = crypto.randomUUID();
+      const now = Date.now();
       const newProduct: Product = {
         id: productId,
         name: productData.name,
@@ -210,6 +215,8 @@ class FirestoreProductService {
         stock: productData.stock,
         category: productData.category || '',
         icon: productData.icon || '',
+        createdAt: now,
+        updatedAt: now,
         lastUpdated: new Date()
       };
       
@@ -221,6 +228,8 @@ class FirestoreProductService {
         stock: newProduct.stock,
         category: newProduct.category,
         icon: newProduct.icon,
+        createdAt: Timestamp.fromMillis(newProduct.createdAt),
+        updatedAt: Timestamp.fromMillis(newProduct.updatedAt),
         lastUpdated: Timestamp.fromDate(newProduct.lastUpdated)
       });
       
@@ -247,13 +256,16 @@ class FirestoreProductService {
         throw new Error(`Product with ID ${id} not found`);
       }
       
+      const now = Date.now();
       const updatedProduct: Product = {
+        ...existingProduct, // Conserve createdAt
         id,
         name: productData.name,
         price: productData.price,
         stock: productData.stock,
         category: productData.category || '',
         icon: productData.icon || '',
+        updatedAt: now,
         lastUpdated: new Date()
       };
       
@@ -265,6 +277,7 @@ class FirestoreProductService {
         stock: updatedProduct.stock,
         category: updatedProduct.category,
         icon: updatedProduct.icon,
+        updatedAt: Timestamp.fromMillis(updatedProduct.updatedAt),
         lastUpdated: Timestamp.fromDate(updatedProduct.lastUpdated)
       }, { merge: true });
       
@@ -309,10 +322,12 @@ class FirestoreProductService {
         throw new Error(`Insufficient stock for product ${product.name}`);
       }
       
+      const now = Date.now();
       // Mettre à jour le stock
       const updatedProduct: Product = {
         ...product,
         stock: product.stock - quantity,
+        updatedAt: now,
         lastUpdated: new Date()
       };
       
@@ -320,6 +335,7 @@ class FirestoreProductService {
       const productRef = doc(db, PRODUCTS_COLLECTION, id);
       await setDoc(productRef, {
         stock: updatedProduct.stock,
+        updatedAt: Timestamp.fromMillis(updatedProduct.updatedAt),
         lastUpdated: Timestamp.fromDate(updatedProduct.lastUpdated)
       }, { merge: true });
       
@@ -342,6 +358,7 @@ class FirestoreProductService {
       
       const batch = writeBatch(db);
       const importedProducts: Product[] = [];
+      const now = Date.now();
       
       for (const productData of products) {
         const productId = crypto.randomUUID();
@@ -352,6 +369,8 @@ class FirestoreProductService {
           stock: productData.stock,
           category: productData.category || '',
           icon: productData.icon || '',
+          createdAt: now,
+          updatedAt: now,
           lastUpdated: new Date()
         };
         
@@ -362,6 +381,8 @@ class FirestoreProductService {
           stock: newProduct.stock,
           category: newProduct.category,
           icon: newProduct.icon,
+          createdAt: Timestamp.fromMillis(newProduct.createdAt),
+          updatedAt: Timestamp.fromMillis(newProduct.updatedAt),
           lastUpdated: Timestamp.fromDate(newProduct.lastUpdated)
         });
         
@@ -379,3 +400,4 @@ class FirestoreProductService {
 
 // Singleton instance
 export const firestoreProductService = new FirestoreProductService();
+

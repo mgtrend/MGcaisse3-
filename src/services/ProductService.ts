@@ -40,7 +40,8 @@ export class ProductService {
         ...productData,
         id: crypto.randomUUID(),
         createdAt: Date.now(),
-        updatedAt: Date.now()
+        updatedAt: Date.now(),
+        lastUpdated: new Date() // Ajout de la propriété manquante
       };
       
       await databaseService.saveProduct(newProduct);

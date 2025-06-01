@@ -7,8 +7,8 @@ import { useState, useEffect, useCallback } from 'react';
 import { firestoreProductService } from './firestoreProductService';
 import { firestoreSalesService } from './firestoreSalesService';
 import { authService } from './authService';
-import { getStorage, ref, uploadString, getDownloadURL } from 'firebase/storage';
-import { db, storage } from './config';
+import { ref, uploadString, getDownloadURL } from 'firebase/storage';
+import { storage } from './config';
 
 // Intervalle de sauvegarde automatique en millisecondes (1 heure)
 const AUTO_BACKUP_INTERVAL = 60 * 60 * 1000;
@@ -60,7 +60,7 @@ export function useFirebaseSync() {
       }
       
       // Créer une sauvegarde des ventes
-      const salesBackupUrl = await firestoreSalesService.createBackup();
+      await firestoreSalesService.createBackup();
       
       // Créer une sauvegarde complète (produits + ventes)
       const products = await firestoreProductService.getAllProducts();

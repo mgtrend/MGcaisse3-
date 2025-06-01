@@ -11,6 +11,7 @@ export interface Product {
   category?: string;
   description?: string;
   icon?: string; // Emoji ou classe CSS de l'icône (ex: "🍕" ou "fas fa-pizza-slice")
+  lastUpdated: Date; // Ajout de la propriété manquante
   createdAt: number;
   updatedAt: number;
 }
