@@ -1,0 +1,91 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary-color: #4f46e5;
+  --primary-hover: #4338ca;
+  --secondary-color: #f3f4f6;
+  --text-color: #1f2937;
+  --text-light: #6b7280;
+  --danger-color: #ef4444;
+  --success-color: #10b981;
+  --warning-color: #f59e0b;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: var(--text-color);
+}
+
+/* Optimisations pour les performances */
+* {
+  box-sizing: border-box;
+}
+
+/* Amélioration de l'accessibilité pour le focus */
+:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* Optimisations pour les appareils tactiles */
+@media (hover: none) {
+  .hover\:bg-gray-100:hover {
+    background-color: inherit;
+  }
+  
+  .hover\:bg-indigo-700:hover {
+    background-color: inherit;
+  }
+}
+
+/* Amélioration des animations pour la performance */
+.animate-spin {
+  animation-duration: 1s;
+  animation-timing-function: linear;
+}
+
+/* Optimisation des transitions */
+.transition-all,
+.transition-colors {
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Optimisation pour les écrans de petite taille */
+@media (max-width: 640px) {
+  .text-4xl {
+    font-size: 1.75rem;
+  }
+  
+  .py-12 {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+}
+
+/* Amélioration de l'accessibilité pour les contrastes */
+.text-gray-500 {
+  color: #6b7280;
+}
+
+.text-indigo-600 {
+  color: #4f46e5;
+}
+
+/* Optimisation pour l'impression */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  body {
+    background-color: white;
+  }
+}
